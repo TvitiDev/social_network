@@ -48,7 +48,7 @@ class LoginFormTest extends TestCase
     {
         $model = new LoginForm([
             'username' => '1@mail.ru',
-            'password' => '123456786',
+            'password' => '12345678',
         ]);
 
         $this->specify('пользователь должен иметь возможность войти в систему с правильными учетными данными', function () use ($model) {

@@ -47,16 +47,19 @@ class Friends extends \yii\db\ActiveRecord
     /**
      *  Добавление пользовалеля в друзья
      */
-    public function addFriends($user, $friend)
+    public function addFriend($user, $friend)
     {
         # code..
-        return true;
+        if($friend > 0)
+            return true;
+        else
+            return false;
     }
 
     /**
      *  Удаление пользователя из друзей
      */
-    public function removeFriends($user, $friend)
+    public function removeFriend($user, $friend)
     {
         # code...
         return true;
