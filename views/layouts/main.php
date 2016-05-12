@@ -38,10 +38,10 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Главная', 'url' => ['/site/index']],
             Yii::$app->user->isGuest ? '' : (
-                ['label' => 'Друзья', 'url' => ['/site/friend']]
+                ['label' => 'Друзья', 'url' => ['/site/friends']]
             ),
             Yii::$app->user->isGuest ? '' : (
-                ['label' => 'Сообщения', 'url' => ['/site/message']]
+                ['label' => 'Сообщения', 'url' => ['/site/messages']]
             ),
             Yii::$app->user->isGuest ? (
                 ['label' => 'Вход', 'url' => ['/site/login']]
@@ -70,8 +70,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
+        <p class="pull-left">&copy; Вадим <?= date('Y') ?></p>
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
