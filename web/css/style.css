@@ -1,0 +1,15 @@
+.user_list {
+	overflow-x: hidden;
+	overflow-y: scroll;
+	height: 490px;
+}
+
+.messages_list {
+	overflow-x: hidden;
+	overflow-y: scroll;
+	height: 270px;
+}
+
+.message_button {
+    margin: 10px 0px;
+}
