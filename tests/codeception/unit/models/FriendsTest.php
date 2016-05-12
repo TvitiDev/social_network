@@ -28,6 +28,8 @@ class FriendsTest extends TestCase
         ]);
         $model->login();
         $this->userId = Yii::$app->user->getId();
+        $model = new Friends();
+        $model->removeFriend($this->userId, 2);
     }
 
     public function testNonExistentUser()
@@ -46,7 +48,7 @@ class FriendsTest extends TestCase
         $this->specify('взаимодействие с существующими пользователями', function () use ($model) {
             expect('модель должна добавить сущестующего пользователя', $model->addFriend($this->userId, 2) )->true();
             expect('модель должна сообщить о наличии друга', $model->hasFriend($this->userId, 2) )->true();
-            expect('модель должна сообщить о отсутствии друга', $model->hasFriend($this->userId, $this->userId) )->true();
+            expect('модель должна сообщить о отсутствии друга', $model->hasFriend($this->userId, $this->userId) )->false();
             expect('модель не должна добавлять в друзья уже друга', $model->addFriend($this->userId, 2) )->false();
             expect('модель не должна добавлять в друзья самого себя', $model->addFriend($this->userId, $this->userId) )->false();
             expect('модель должна удалить из друзей друга', $model->removeFriend($this->userId, 2) )->true();

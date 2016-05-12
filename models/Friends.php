@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 
+use app\models\User;
 /**
  * This is the model class for table "friends".
  *
@@ -49,11 +50,24 @@ class Friends extends \yii\db\ActiveRecord
      */
     public function addFriend($user, $friend)
     {
-        # code..
-        if($friend > 0)
-            return true;
-        else
+        $friendModel = User::findOne($friend);
+        if(!$friendModel || $user == $friend) {
+            // пользователя не существует или мы пытаеся добавить сами себя
             return false;
+        }
+        if( $this->hasFriend($user, $friend) ) {
+            // пользователи уже друзья
+            return false;
+        }
+
+        $this->user_id = $user;
+        $this->friend_id = $friend;
+
+        if($this->save()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -61,8 +75,13 @@ class Friends extends \yii\db\ActiveRecord
      */
     public function removeFriend($user, $friend)
     {
-        # code...
-        return true;
+        $model = $this->findOne(['user_id' => $user, 'friend_id' => $friend]);
+        if($model && $model->delete()){
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     /**
@@ -70,7 +89,11 @@ class Friends extends \yii\db\ActiveRecord
      */
     public function hasFriend($user, $friend)
     {
-        # code...
-        return true;
+        if( $this->findOne(['user_id' => $user, 'friend_id' => $friend]) ){
+            // если такая пара найдена
+            return true;
+        }
+
+        return false;
     }
 }
