@@ -89,7 +89,7 @@ class Friends extends \yii\db\ActiveRecord
      */
     public function hasFriend($user, $friend)
     {
-        if( Friends::findOne(['user_id' => $user, 'friend_id' => $friend]) ){
+        if( Friends::findOne(['user_id' => $user, 'friend_id' => $friend]) || Friends::findOne(['user_id' => $friend, 'friend_id' => $user]) ){
             // если такая пара найдена
             return true;
         }
