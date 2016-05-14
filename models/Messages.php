@@ -57,10 +57,18 @@ class Messages extends \yii\db\ActiveRecord
      */
     public function addMessage($userFrom, $userTo, $mes)
     {
-        // if( Friends::hasFriend($user, $friend) ) {
-        //
-        // }
-        return true;
+        if( Friends::hasFriend($userFrom, $userTo) ) {
+            $this->user_from = $userFrom;
+            $this->user_to = $userTo;
+            $this->text = $mes;
+            $this->time = time();
+            if($this->save()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 
     /**
@@ -69,6 +77,7 @@ class Messages extends \yii\db\ActiveRecord
      */
     public function getListMessage($userFrom, $userTo)
     {
-        return true;
+        $messageList = $this->find()->where(['user_from' => $userFrom, 'user_to' => $userTo])->asArray()->all();
+        return $messageList ? : false;
     }
 }
